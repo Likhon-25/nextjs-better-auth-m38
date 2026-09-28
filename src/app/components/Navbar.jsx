@@ -1,9 +1,13 @@
 "use client";
 import { useState } from "react";
 import { Link, Button } from "@heroui/react";
+import { useSession } from "@/lib/auth-client";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { data: session } = useSession();
+  (console.log("use session "), session);
   const links = (
     <>
       <li>
@@ -27,6 +31,20 @@ export default function Navbar() {
         </Link>
         <Button className="w-full">Sign Up</Button>
       </li>
+    </>
+  );
+
+  const authLinks = (
+    <>
+      {session?.user ? (
+        <> <span>Welcome, {session.user.name}</span>
+        <Button>Sign Out</Button> </>
+      ) : (
+        <>
+          <Link href="#">Login</Link>
+          <Button>Sign Up</Button>
+        </>
+      )}
     </>
   );
 
@@ -69,11 +87,20 @@ export default function Navbar() {
             <p className="font-bold">ACME</p>
           </div>
         </div>
-        <ul className="hidden items-center gap-4 md:flex"></ul>
-        <div className="hidden items-center gap-4 md:flex">
-          <Link href="#">Login</Link>
-          <Button>Sign Up</Button>
-        </div>
+        <ul className="hidden items-center gap-4 md:flex">
+          <li>
+            <Link href="#">Features</Link>
+          </li>
+          <li>
+            <Link href="#" className="font-medium text-accent">
+              Dashboard
+            </Link>
+          </li>
+          <li>
+            <Link href="#">Pricing</Link>
+          </li>
+        </ul>
+        <div className="hidden items-center gap-4 md:flex">{authLinks}</div>
       </header>
       {isMenuOpen && (
         <div className="border-t border-separator md:hidden">
