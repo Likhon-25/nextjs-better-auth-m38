@@ -3,22 +3,22 @@ import { useState } from "react";
 import { Link, Button } from "@heroui/react";
 import { signIn, useSession } from "@/lib/auth-client";
 import { signOut } from "@/lib/auth-client";
-import {Spinner} from "@heroui/react";
-
+import { Spinner } from "@heroui/react";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { data: session, isPending } = useSession();
-  
+
   (console.log("use session "), session);
-  if(isPending){
-    return <div className="flex flex-col items-center gap-2">
+  if (isPending) {
+    return (
+      <div className="flex flex-col items-center gap-2">
         <Spinner size="xl" />
         <span className="text-xs text-muted">Extra Large</span>
       </div>
+    );
   }
-
 
   const links = (
     <>
@@ -32,24 +32,37 @@ export default function Navbar() {
           Dashboard
         </Link>
       </li>
-     { session?.user && <li>
-        <Link href="#" className="block py-2">
-          Profile
-        </Link>
-      </li>}
-      
+      {session?.user && (
+        <>
+          <li>
+            <Link href="/profile" className="block py-2">
+              Profile
+            </Link>
+          </li>
+          <li>
+            <Link href="/settings" className="block py-2">
+              Settings
+            </Link>
+          </li>
+        </>
+      )}
     </>
   );
 
   const authLinks = (
     <>
       {session?.user ? (
-        <> <span>Welcome, {session.user.name}</span>
-        <Button onClick={() => signOut() } >Sign Out</Button> </>
+        <>
+          {" "}
+          <span>Welcome, {session.user.name}</span>
+          <Button onClick={() => signOut()}>Sign Out</Button>{" "}
+        </>
       ) : (
         <>
           <Link href="/sign-in">Sign in</Link>
-          <Link href="/sign-up"><Button>Sign Up</Button></Link>
+          <Link href="/sign-up">
+            <Button>Sign Up</Button>
+          </Link>
         </>
       )}
     </>
@@ -91,12 +104,12 @@ export default function Navbar() {
           </button>
           <div className="flex items-center gap-3">
             {/* <Logo /> */}
-            <Link href="/" className="font-bold">ACME</Link>
+            <Link href="/" className="font-bold">
+              ACME
+            </Link>
           </div>
         </div>
-        <ul className="hidden items-center gap-4 md:flex">
-          {links}
-        </ul>
+        <ul className="hidden items-center gap-4 md:flex">{links}</ul>
         <div className="hidden items-center gap-4 md:flex">{authLinks}</div>
       </header>
       {isMenuOpen && (
