@@ -24,25 +24,20 @@ export default function Navbar() {
     <>
       <li>
         <Link href="#" className="block py-2">
-          Features
+          Service
         </Link>
       </li>
       <li>
-        <Link href="#" className="block py-2 font-medium text-accent">
+        <Link href="dashboard" className="block py-2 font-medium text-accent">
           Dashboard
         </Link>
       </li>
-      <li>
+     { session?.user && <li>
         <Link href="#" className="block py-2">
-          Pricing
+          Profile
         </Link>
-      </li>
-      <li className="mt-4 flex flex-col gap-2 border-t border-separator pt-4">
-        <Link href="#" className="block py-2">
-          Login
-        </Link>
-        <Button className="w-full">Sign Up</Button>
-      </li>
+      </li>}
+      
     </>
   );
 
@@ -53,7 +48,7 @@ export default function Navbar() {
         <Button onClick={() => signOut() } >Sign Out</Button> </>
       ) : (
         <>
-          <Link href="/sign-in">Login</Link>
+          <Link href="/sign-in">Sign in</Link>
           <Link href="/sign-up"><Button>Sign Up</Button></Link>
         </>
       )}
@@ -96,21 +91,11 @@ export default function Navbar() {
           </button>
           <div className="flex items-center gap-3">
             {/* <Logo /> */}
-            <p className="font-bold">ACME</p>
+            <Link href="/" className="font-bold">ACME</Link>
           </div>
         </div>
         <ul className="hidden items-center gap-4 md:flex">
-          <li>
-            <Link href="#">Features</Link>
-          </li>
-          <li>
-            <Link href="#" className="font-medium text-accent">
-              Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link href="#">Pricing</Link>
-          </li>
+          {links}
         </ul>
         <div className="hidden items-center gap-4 md:flex">{authLinks}</div>
       </header>
