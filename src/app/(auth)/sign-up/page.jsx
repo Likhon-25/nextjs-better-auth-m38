@@ -33,6 +33,16 @@ const SignUpPage = () => {
       provider: 'google'
     })
   }
+  const handleGithubSignin = async () =>{
+    const resData = await signIn.social({
+      provider: 'github'
+    })
+  }
+  const handleDiscordSignin = async () =>{
+    const resData = await signIn.social({
+      provider: 'discord'
+    })
+  }
 
   return (
     <div>
@@ -108,6 +118,8 @@ const SignUpPage = () => {
 
         <p>OR</p>
         <Button onClick={handleGoogleSignin} >Sign in with Google</Button>
+        <Button onClick={handleGithubSignin} >Sign in with Github</Button>
+        <Button onClick={handleDiscordSignin} >Sign in with Discord</Button>
     </div>
   );
 };

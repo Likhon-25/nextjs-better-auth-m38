@@ -15,6 +15,18 @@ export const auth = betterAuth({
       clientSecret: process.env.BEETER_AUTH_GOOGLE_SECRET
     }
   },
+  socialProviders:{
+    github:{
+      clientId: process.env.BETTER_AUTH_GITHUB_CLIENT_ID,
+      clientSecret: process.env.BETTER_AUTH_GITHUB_SECRET
+    }
+  },
+  socialProviders:{
+    discord:{
+      clientId: process.env.BETTER_AUTH_DISCORD_CLIENT_ID,
+      clientSecret: process.env.BETTER_AUTH_DISCORD_SECRET
+    }
+  },
 
   database: mongodbAdapter(db, {
     client,
