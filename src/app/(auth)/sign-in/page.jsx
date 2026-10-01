@@ -12,6 +12,7 @@ import {
 } from "@heroui/react";
 import { signIn } from "@/lib/auth-client";
 import { Eye, EyeSlash } from "@gravity-ui/icons";
+import Link from "next/link";
 
 const SignInPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -32,66 +33,80 @@ const SignInPage = () => {
   };
 
   return (
-    <Form className="flex w-96 flex-col gap-4" onSubmit={onSubmit}>
-      {/* Email */}
-      <TextField
-        isRequired
-        name="email"
-        type="email"
-        validate={(value) => {
-          if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-            return "Please enter a valid email address";
-          }
-          return null;
-        }}
-      >
-        <Label>Email</Label>
-        <Input placeholder="john@example.com" />
-        <FieldError />
-      </TextField>
+    <div>
+      <h2>Please Sign in</h2>
+      <Form className="flex w-96 flex-col gap-4" onSubmit={onSubmit}>
+        {/* Email */}
+        <TextField
+          isRequired
+          name="email"
+          type="email"
+          validate={(value) => {
+            if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+              return "Please enter a valid email address";
+            }
+            return null;
+          }}
+        >
+          <Label>Email</Label>
+          <Input placeholder="john@example.com" />
+          <FieldError />
+        </TextField>
 
-      {/* visible password */}
-      <TextField className="w-full max-w-[280px]" name="password">
-        <Label>Password</Label>
-       
-        <FieldError />
-        <InputGroup>
-          <InputGroup.Input
-            className="w-full max-w-[280px]"
-            type={isVisible ? "text" : "password"}
-          />
-          <InputGroup.Suffix className="pe-0">
-            <Button
-              isIconOnly
-              aria-label={isVisible ? "Hide password" : "Show password"}
-              size="sm"
-              variant="ghost"
-              onPress={() => setIsVisible(!isVisible)}
-            >
-              {isVisible ? (
-                <Eye className="size-4" />
-              ) : (
-                <EyeSlash className="size-4" />
-              )}
-            </Button>
-          </InputGroup.Suffix>
-          
-        </InputGroup>
-         <Description>
-          Must be at least 8 characters with 1 uppercase and 1 number
-        </Description>
-      </TextField>
+        {/* visible password */}
+        <TextField className="w-full max-w-[280px]" name="password">
+          <Label>Password</Label>
 
-      <div className="flex gap-2">
-        <Button type="submit">
-          {/* <Check /> */}
-          Sign in
-        </Button>
-        <Button type="reset" variant="secondary">
-          Reset
-        </Button>
-      </div>
-    </Form>
+          <FieldError />
+          <InputGroup>
+            <InputGroup.Input
+              className="w-full max-w-[280px]"
+              type={isVisible ? "text" : "password"}
+            />
+            <InputGroup.Suffix className="pe-0">
+              <Button
+                isIconOnly
+                aria-label={isVisible ? "Hide password" : "Show password"}
+                size="sm"
+                variant="ghost"
+                onPress={() => setIsVisible(!isVisible)}
+              >
+                {isVisible ? (
+                  <Eye className="size-4" />
+                ) : (
+                  <EyeSlash className="size-4" />
+                )}
+              </Button>
+            </InputGroup.Suffix>
+          </InputGroup>
+          <Description>
+            Must be at least 8 characters with 1 uppercase and 1 number
+          </Description>
+        </TextField>
+
+        <div className="flex gap-2">
+          <Button type="submit">
+            {/* <Check /> */}
+            Sign in
+          </Button>
+          <Button type="reset" variant="secondary">
+            Reset
+          </Button>
+        </div>
+      </Form>
+
+      <p>
+        <small>
+          Forgot Password?{" "}
+          <Link
+            className="text-blue-500 hover:underline"
+            href="/forgot-password"
+          >
+            Click here
+          </Link>
+        </small>
+      </p>
+    </div>
   );
 };
 
