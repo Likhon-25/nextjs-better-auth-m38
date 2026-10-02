@@ -10,7 +10,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
-    handleforgotPassword: async({user, url, token}) => {
+    sendResetPassword: async({user, url}) => {
       void resend.emails.send({
         from: 'Acme <onboarding@resend.dev>',
         to: user.email,
